@@ -1,0 +1,7 @@
+# Fichiers de gouvernance : revue de Pierre obligatoire (activer "Require review from Code Owners").
+/AGENTS.md          @Pwierre-M5
+/CLAUDE.md          @Pwierre-M5
+/docs/agents/       @Pwierre-M5
+/docs/decisions/    @Pwierre-M5
+/.github/           @Pwierre-M5
+/.githooks/         @Pwierre-M5

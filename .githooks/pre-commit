@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+. "$(dirname "$0")/branch-rules.sh"
+
+branch="$(git symbolic-ref --short HEAD 2>/dev/null || echo '')"
+if [[ -z "$branch" ]]; then
+  echo "Refusé : HEAD détachée, commit hors branche de tâche." >&2
+  exit 1
+fi
+check_branch "$branch" || exit 1
+
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks protect --staged --redact --no-banner || {
+    echo "Refusé : secret potentiel détecté par gitleaks." >&2; exit 1; }
+else
+  echo "Avertissement : gitleaks absent, scan de secrets local ignoré (la CI le fera)." >&2
+fi
